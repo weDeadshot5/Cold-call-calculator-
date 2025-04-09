@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Value of a No Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f7f7f7;
+      max-width: 500px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Value of a "No" Calculator</h1>
+  <label for="dealSize">Average Deal Size ($):</label>
+  <input type="number" id="dealSize" placeholder="e.g. 199" />
+
+  <label for="closeRate">Close Rate (%):</label>
+  <input type="number" id="closeRate" placeholder="e.g. 5" />
+
+  <button onclick="calculateValue()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateValue() {
+      const dealSize = parseFloat(document.getElementById('dealSize').value);
+      const closeRate = parseFloat(document.getElementById('closeRate').value) / 100;
+
+      if (isNaN(dealSize) || isNaN(closeRate) || closeRate <= 0 || closeRate >= 1) {
+        document.getElementById('result').textContent = 'Please enter valid inputs.';
+        return;
+      }
+
+      const valueOfYes = dealSize;
+      const numberOfNos = (1 / closeRate) - 1;
+      const valueOfNo = valueOfYes / (numberOfNos + 1);
+
+      document.getElementById('result').textContent = `Each "No" is worth $${valueOfNo.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
